@@ -1,0 +1,49 @@
+# SquireOS Medieval Writing Support for Nook Typewriter
+# By quill and candlelight, we configure...
+
+menuconfig SQUIREOS
+	tristate "SquireOS Medieval Writing Support"
+	default m
+	help
+	  This option enables the SquireOS medieval-themed kernel subsystem
+	  for the Nook Typewriter project. It provides whimsical /proc
+	  interfaces including an ASCII jester, writing statistics tracking,
+	  and inspirational quotes for writers.
+
+	  Say Y to build into the kernel
+	  Say M to build as a loadable module (squireos.ko)
+	  Say N to disable
+
+if SQUIREOS
+
+config SQUIREOS_JESTER
+	bool "ASCII Jester Display"
+	default y
+	help
+	  Enable the ASCII jester that displays mood-based art in
+	  /proc/squireos/jester. The jester's mood changes based on
+	  system state and writing activity.
+
+config SQUIREOS_TYPEWRITER
+	bool "Typewriter Statistics Tracking"
+	default y
+	help
+	  Enable writing statistics tracking including keystrokes,
+	  words written, and writing achievements. Statistics are
+	  available at /proc/squireos/typewriter/
+
+config SQUIREOS_WISDOM
+	bool "Writing Wisdom Quotes"
+	default y
+	help
+	  Enable inspirational writing quotes that rotate randomly.
+	  Quotes are available at /proc/squireos/wisdom
+
+config SQUIREOS_DEBUG
+	bool "SquireOS Debug Messages"
+	default n
+	help
+	  Enable debug messages for SquireOS subsystem development.
+	  This will add verbose kernel log messages.
+
+endif # SQUIREOS
