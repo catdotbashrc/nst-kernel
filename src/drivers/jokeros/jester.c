@@ -1,7 +1,7 @@
 /*
- * Jester Module - ASCII Art Court Jester for SquireOS
+ * Jester Module - ASCII Art Court Jester for JokerOS
  * 
- * Provides /proc/squireos/jester with dynamic ASCII art based on system state
+ * Provides /proc/jokeros/jester with dynamic ASCII art based on system state
  * A whimsical companion for lonely writers
  */
 
@@ -13,10 +13,10 @@
 #include <linux/jiffies.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("QuillKernel Contributors");
+MODULE_AUTHOR("JoKernel Contributors");
 MODULE_DESCRIPTION("Court Jester - Whimsical companion for digital scribes");
 
-extern struct proc_dir_entry *squireos_root;  /* From squireos_core.c */
+extern struct proc_dir_entry *jokeros_root;  /* From jokeros_core.c */
 
 static struct proc_dir_entry *jester_entry;
 
@@ -59,53 +59,53 @@ static int jester_show(char *buffer, char **start, off_t offset,
     
     switch (mood) {
     case JESTER_HAPPY:
-        len = sprintf(buffer,
+        len = snprintf(buffer, PAGE_SIZE,
             "     .~\"~.~\"~.\n"
             "    /  ^   ^  \\    *jingle jingle*\n"
-            "   |  >  ◡  <  |   The jester is happy!\n"
+            "   |  >  ^  <  |   The jester is happy!\n"
             "    \\  ___  /      Writing brings joy!\n"
-            "     |~|♦|~|       \n"
+            "     |~|*|~|       \n"
             "     |  |  |       \n"
             "    /|  |  |\\      \n"
             "   /_|__|__|_\\     \n");
         break;
         
     case JESTER_SLEEPY:
-        len = sprintf(buffer,
+        len = snprintf(buffer, PAGE_SIZE,
             "     .~\"~.~\"~.\n"
             "    /  -   -  \\    *yawn*\n"
             "   |  >  ~  <  |   The jester grows weary...\n"
             "    \\  ___  /      Perhaps a rest?\n"
-            "     |~|♦|~|       zzz...\n");
+            "     |~|*|~|       zzz...\n");
         break;
         
     case JESTER_EXCITED:
-        len = sprintf(buffer,
+        len = snprintf(buffer, PAGE_SIZE,
             "     .~\"~.~\"~.\n"
             "    /  O   O  \\    *JINGLE JANGLE*\n"
             "   |  >  O  <  |   MAGNIFICENT WRITING!\n"
             "    \\  \\o/  /      The words flow like wine!\n"
-            "     |~|♦|~|       \n"
+            "     |~|*|~|       \n"
             "     |>|||<|       *dancing*\n");
         break;
         
     case JESTER_THOUGHTFUL:
-        len = sprintf(buffer,
+        len = snprintf(buffer, PAGE_SIZE,
             "     .~\"~.~\"~.\n"
             "    /  o   -  \\    *hmm...*\n"
             "   |  >  _  <  |   The jester ponders...\n"
             "    \\  ---  /      What tale shall we tell?\n"
-            "     |~|♦|~|       \n"
+            "     |~|*|~|       \n"
             "     | ? ? |       \n");
         break;
         
     case JESTER_MISCHIEVOUS:
-        len = sprintf(buffer,
+        len = snprintf(buffer, PAGE_SIZE,
             "     .~\"~.~\"~.\n"
-            "    /  ◔   ◔  \\    *mischievous giggle*\n"
-            "   |  >  ω  <  |   The jester has an idea!\n"
+            "    /  o   o  \\    *mischievous giggle*\n"
+            "   |  >  -  <  |   The jester has an idea!\n"
             "    \\  ___  /      Write something silly!\n"
-            "     |~|♠|~|       \n"
+            "     |~|+|~|       \n"
             "     |\\|/\\|       *plot plot plot*\n");
         break;
     }
@@ -116,15 +116,15 @@ static int jester_show(char *buffer, char **start, off_t offset,
 
 int jester_init(void)
 {
-    if (!squireos_root) {
-        printk(KERN_ERR "Jester: SquireOS root not found!\n");
+    if (!jokeros_root) {
+        printk(KERN_ERR "Jester: JokerOS root not found!\n");
         return -ENOENT;
     }
     
-    jester_entry = create_proc_read_entry("jester", 0444, squireos_root,
+    jester_entry = create_proc_read_entry("jester", 0444, jokeros_root,
                                           jester_show, NULL);
     if (!jester_entry) {
-        printk(KERN_ERR "Jester: Failed to create /proc/squireos/jester\n");
+        printk(KERN_ERR "Jester: Failed to create /proc/jokeros/jester\n");
         return -ENOMEM;
     }
     
@@ -135,7 +135,7 @@ int jester_init(void)
 void jester_exit(void)
 {
     if (jester_entry)
-        remove_proc_entry("jester", squireos_root);
+        remove_proc_entry("jester", jokeros_root);
     
     printk(KERN_INFO "Jester: The jester bows and departs...\n");
 }

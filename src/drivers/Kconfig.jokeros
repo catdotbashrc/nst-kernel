@@ -1,25 +1,25 @@
-# SquireOS Medieval Interface Configuration
+# JokerOS Jester Interface Configuration
 
-menuconfig SQUIREOS
-	tristate "SquireOS Medieval Interface for Digital Typewriter"
+menuconfig JOKEROS
+	tristate "JokerOS Jester Interface for Digital Typewriter"
 	default y
 	help
-	  This enables the SquireOS medieval-themed kernel interface
+	  This enables the JokerOS jester-themed kernel interface
 	  for the Nook Simple Touch typewriter project.
 	  
 	  Features include:
-	  - Court jester ASCII art companion at /proc/squireos/jester
-	  - Writing statistics tracking at /proc/squireos/typewriter/
-	  - Rotating wisdom quotes at /proc/squireos/wisdom
-	  - Medieval boot messages and theming
+	  - Court jester ASCII art companion at /proc/jokeros/jester
+	  - Writing statistics tracking at /proc/jokeros/typewriter/
+	  - Rotating wisdom quotes at /proc/jokeros/wisdom
+	  - Jester-themed boot messages and humor
 	  
-	  Say Y here to enable the whimsical medieval interface.
+	  Say Y here to enable the whimsical jester interface.
 	  Say M to build as loadable modules.
 	  Say N if you prefer a boring, jester-free kernel.
 
-if SQUIREOS
+if JOKEROS
 
-config SQUIREOS_JESTER
+config JOKEROS_JESTER
 	bool "Enable Court Jester companion"
 	default y
 	help
@@ -27,25 +27,25 @@ config SQUIREOS_JESTER
 	  system state. The jester provides whimsical companionship
 	  during long writing sessions.
 
-config SQUIREOS_TYPEWRITER
+config JOKEROS_TYPEWRITER
 	bool "Enable typewriter statistics tracking"
 	default y
 	help
 	  Tracks keystrokes, words, and writing sessions. Provides
 	  achievement system from Apprentice Scribe to Grand Chronicler.
 
-config SQUIREOS_WISDOM
+config JOKEROS_WISDOM
 	bool "Enable writing wisdom quotes"
 	default y
 	help
 	  Provides rotating quotes about writing from famous authors
 	  and mysterious medieval sages.
 
-config SQUIREOS_DEBUG
-	bool "Enable SquireOS debug messages"
+config JOKEROS_DEBUG
+	bool "Enable JokerOS debug messages"
 	default n
 	help
-	  Enable additional debug output from SquireOS modules.
+	  Enable additional debug output from JokerOS modules.
 	  Useful for development but increases kernel log verbosity.
 
-endif # SQUIREOS
+endif # JOKEROS

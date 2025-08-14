@@ -1,5 +1,5 @@
 /*
- * Typewriter Module - Writing Statistics for SquireOS
+ * Typewriter Module - Writing Statistics for JokerOS
  * 
  * Tracks keystrokes, words, and writing sessions
  * Provides achievements for dedicated scribes
@@ -15,10 +15,10 @@
 #include <linux/time.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("QuillKernel Contributors");
+MODULE_AUTHOR("JoKernel Contributors");
 MODULE_DESCRIPTION("Typewriter statistics tracker for digital scribes");
 
-extern struct proc_dir_entry *squireos_root;
+extern struct proc_dir_entry *jokeros_root;
 
 static struct proc_dir_entry *typewriter_dir;
 static struct proc_dir_entry *stats_entry;
@@ -118,13 +118,13 @@ static int stats_show(char *buffer, char **start, off_t offset,
         session_time = now.tv_sec - stats.current_session_start;
     }
     
-    len = sprintf(buffer, "═══ Writing Statistics ═══\n");
-    len += sprintf(buffer + len, "Keystrokes:     %lu\n", stats.keystrokes);
-    len += sprintf(buffer + len, "Words Written:  %lu\n", stats.words);
-    len += sprintf(buffer + len, "Sessions:       %lu\n", stats.sessions);
-    len += sprintf(buffer + len, "Session Time:   %lu:%02lu\n", 
+    len = snprintf(buffer, PAGE_SIZE, "═══ Writing Statistics ═══\n");
+    len += snprintf(buffer + len, PAGE_SIZE - len, "Keystrokes:     %lu\n", stats.keystrokes);
+    len += snprintf(buffer + len, PAGE_SIZE - len, "Words Written:  %lu\n", stats.words);
+    len += snprintf(buffer + len, PAGE_SIZE - len, "Sessions:       %lu\n", stats.sessions);
+    len += snprintf(buffer + len, PAGE_SIZE - len, "Session Time:   %lu:%02lu\n", 
                   session_time / 60, session_time % 60);
-    len += sprintf(buffer + len, "═════════════════════════\n");
+    len += snprintf(buffer + len, PAGE_SIZE - len, "═════════════════════════\n");
     
     *eof = 1;
     return len;
@@ -138,22 +138,22 @@ static int achievement_show(char *buffer, char **start, off_t offset,
     int level = get_achievement_level();
     int next_level = level + 1;
     
-    len = sprintf(buffer, "═══ Writing Achievement ═══\n\n");
-    len += sprintf(buffer + len, "Current Title:\n");
-    len += sprintf(buffer + len, "  ★ %s ★\n", achievements[level].title);
-    len += sprintf(buffer + len, "  \"%s\"\n\n", achievements[level].description);
+    len = snprintf(buffer, PAGE_SIZE, "═══ Writing Achievement ═══\n\n");
+    len += snprintf(buffer + len, PAGE_SIZE - len, "Current Title:\n");
+    len += snprintf(buffer + len, PAGE_SIZE - len, "  ★ %s ★\n", achievements[level].title);
+    len += snprintf(buffer + len, PAGE_SIZE - len, "  \"%s\"\n\n", achievements[level].description);
     
     if (achievements[next_level].title) {
         unsigned long words_needed = achievements[next_level].words_required - stats.words;
-        len += sprintf(buffer + len, "Next Achievement:\n");
-        len += sprintf(buffer + len, "  %s\n", achievements[next_level].title);
-        len += sprintf(buffer + len, "  (%lu words to go)\n", words_needed);
+        len += snprintf(buffer + len, PAGE_SIZE - len, "Next Achievement:\n");
+        len += snprintf(buffer + len, PAGE_SIZE - len, "  %s\n", achievements[next_level].title);
+        len += snprintf(buffer + len, PAGE_SIZE - len, "  (%lu words to go)\n", words_needed);
     } else {
-        len += sprintf(buffer + len, "You have reached the pinnacle!\n");
-        len += sprintf(buffer + len, "The Grand Chronicler reigns supreme!\n");
+        len += snprintf(buffer + len, PAGE_SIZE - len, "You have reached the pinnacle!\n");
+        len += snprintf(buffer + len, PAGE_SIZE - len, "The Grand Chronicler reigns supreme!\n");
     }
     
-    len += sprintf(buffer + len, "\n═══════════════════════════\n");
+    len += snprintf(buffer + len, PAGE_SIZE - len, "\n═══════════════════════════\n");
     
     *eof = 1;
     return len;
@@ -166,8 +166,8 @@ int typewriter_init(void)
         return -ENOENT;
     }
     
-    /* Create /proc/squireos/typewriter directory */
-    typewriter_dir = proc_mkdir("typewriter", squireos_root);
+    /* Create /proc/jokeros/typewriter directory */
+    typewriter_dir = proc_mkdir("typewriter", jokeros_root);
     if (!typewriter_dir) {
         printk(KERN_ERR "Typewriter: Failed to create directory\n");
         return -ENOMEM;

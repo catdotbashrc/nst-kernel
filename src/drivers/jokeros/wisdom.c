@@ -1,7 +1,7 @@
 /*
- * Wisdom Module - Rotating quotes for SquireOS
+ * Wisdom Module - Rotating quotes for JokerOS
  * 
- * Provides /proc/squireos/wisdom with writing wisdom from the ages
+ * Provides /proc/jokeros/wisdom with writing wisdom from the ages
  * Inspiration for the digital scribe
  */
 
@@ -12,10 +12,10 @@
 #include <linux/jiffies.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("QuillKernel Contributors");
+MODULE_AUTHOR("JoKernel Contributors");
 MODULE_DESCRIPTION("Ancient wisdom for modern scribes");
 
-extern struct proc_dir_entry *squireos_root;
+extern struct proc_dir_entry *jokeros_root;
 
 static struct proc_dir_entry *wisdom_entry;
 static int wisdom_index = 0;
@@ -64,6 +64,10 @@ static const char *get_next_wisdom(void)
     }
     
     /* Get current wisdom and advance index */
+    if (wisdom_count == 0) {
+        return "No wisdom available - check wisdoms array";
+    }
+    
     wisdom = wisdoms[wisdom_index];
     wisdom_index = (wisdom_index + 1) % wisdom_count;
     
@@ -77,9 +81,9 @@ static int wisdom_show(char *buffer, char **start, off_t offset,
     int len = 0;
     const char *wisdom = get_next_wisdom();
     
-    len = sprintf(buffer, "\n═══ Words of Wisdom ═══\n\n");
-    len += sprintf(buffer + len, "%s\n\n", wisdom);
-    len += sprintf(buffer + len, "═══════════════════════\n\n");
+    len = snprintf(buffer, PAGE_SIZE, "\n═══ Words of Wisdom ═══\n\n");
+    len += snprintf(buffer + len, PAGE_SIZE - len, "%s\n\n", wisdom);
+    len += snprintf(buffer + len, PAGE_SIZE - len, "═══════════════════════\n\n");
     
     *eof = 1;
     return len;
@@ -92,10 +96,10 @@ int wisdom_init(void)
         return -ENOENT;
     }
     
-    wisdom_entry = create_proc_read_entry("wisdom", 0444, squireos_root,
+    wisdom_entry = create_proc_read_entry("wisdom", 0444, jokeros_root,
                                          wisdom_show, NULL);
     if (!wisdom_entry) {
-        printk(KERN_ERR "Wisdom: Failed to create /proc/squireos/wisdom\n");
+        printk(KERN_ERR "Wisdom: Failed to create /proc/jokeros/wisdom\n");
         return -ENOMEM;
     }
     
@@ -106,7 +110,7 @@ int wisdom_init(void)
 void wisdom_exit(void)
 {
     if (wisdom_entry)
-        remove_proc_entry("wisdom", squireos_root);
+        remove_proc_entry("wisdom", jokeros_root);
     
     printk(KERN_INFO "Wisdom: The sages return to their slumber...\n");
 }

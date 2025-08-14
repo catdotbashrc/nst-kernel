@@ -1,49 +1,49 @@
-# SquireOS Medieval Writing Support for Nook Typewriter
-# By quill and candlelight, we configure...
+# JokerOS Jester Writing Support for Nook Typewriter
+# In jest we configure, in laughter we build...
 
-menuconfig SQUIREOS
-	tristate "SquireOS Medieval Writing Support"
+menuconfig JOKEROS
+	tristate "JokerOS Jester Writing Support"
 	default m
 	help
-	  This option enables the SquireOS medieval-themed kernel subsystem
+	  This option enables the JokerOS jester-themed kernel subsystem
 	  for the Nook Typewriter project. It provides whimsical /proc
 	  interfaces including an ASCII jester, writing statistics tracking,
 	  and inspirational quotes for writers.
 
 	  Say Y to build into the kernel
-	  Say M to build as a loadable module (squireos.ko)
+	  Say M to build as a loadable module (jokeros.ko)
 	  Say N to disable
 
-if SQUIREOS
+if JOKEROS
 
-config SQUIREOS_JESTER
+config JOKEROS_JESTER
 	bool "ASCII Jester Display"
 	default y
 	help
 	  Enable the ASCII jester that displays mood-based art in
-	  /proc/squireos/jester. The jester's mood changes based on
+	  /proc/jokeros/jester. The jester's mood changes based on
 	  system state and writing activity.
 
-config SQUIREOS_TYPEWRITER
+config JOKEROS_TYPEWRITER
 	bool "Typewriter Statistics Tracking"
 	default y
 	help
 	  Enable writing statistics tracking including keystrokes,
 	  words written, and writing achievements. Statistics are
-	  available at /proc/squireos/typewriter/
+	  available at /proc/jokeros/typewriter/
 
-config SQUIREOS_WISDOM
+config JOKEROS_WISDOM
 	bool "Writing Wisdom Quotes"
 	default y
 	help
 	  Enable inspirational writing quotes that rotate randomly.
-	  Quotes are available at /proc/squireos/wisdom
+	  Quotes are available at /proc/jokeros/wisdom
 
-config SQUIREOS_DEBUG
-	bool "SquireOS Debug Messages"
+config JOKEROS_DEBUG
+	bool "JokerOS Debug Messages"
 	default n
 	help
-	  Enable debug messages for SquireOS subsystem development.
+	  Enable debug messages for JokerOS subsystem development.
 	  This will add verbose kernel log messages.
 
-endif # SQUIREOS
+endif # JOKEROS
