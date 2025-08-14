@@ -1,0 +1,127 @@
+# Linux Kernel 2.6.29 Build Artifacts
+# =====================================
+
+# Object files
+*.o
+*.o.*
+*.ko
+*.ko.cmd
+
+# Build commands and dependencies
+*.cmd
+.*.cmd
+.*.d
+*.d
+
+# Libraries and archives
+*.a
+*.so
+*.so.*
+*.lib
+
+# Module files
+*.mod
+*.mod.c
+*.mod.o
+modules.order
+Module.symvers
+Module.markers
+
+# Kernel images
+build/uImage
+build/zImage
+build/Image
+src/arch/arm/boot/uImage
+src/arch/arm/boot/zImage
+src/arch/arm/boot/Image
+src/arch/arm/boot/compressed/piggy.gz
+src/arch/arm/boot/compressed/piggy.o
+src/arch/arm/boot/compressed/vmlinux
+src/vmlinux
+src/vmlinux.o
+src/System.map
+
+# Config and version files (keep .config for reference)
+src/.config.old
+src/.version
+src/.tmp_*
+src/.missing-syscalls.d
+
+# Generated headers
+src/include/config/
+src/include/generated/
+src/include/linux/autoconf.h
+src/include/linux/version.h
+src/include/linux/utsrelease.h
+src/include/asm
+src/include/asm-*/asm-offsets.h
+
+# Build system generated
+src/scripts/basic/fixdep
+src/scripts/basic/docproc
+src/scripts/basic/hash
+src/scripts/conmakehash
+src/scripts/kallsyms
+src/scripts/kconfig/conf
+src/scripts/kconfig/mconf
+src/scripts/kconfig/qconf
+src/scripts/kconfig/gconf
+src/scripts/kconfig/nconf
+src/scripts/kconfig/lex.zconf.c
+src/scripts/kconfig/zconf.tab.c
+src/scripts/mod/modpost
+src/scripts/mod/mk_elfconfig
+src/scripts/mod/elfconfig.h
+src/usr/gen_init_cpio
+src/usr/initramfs_data.cpio
+src/usr/initramfs_data.cpio.gz
+src/usr/initramfs_list
+
+# Temporary and backup files
+*.tmp
+*.orig
+*.rej
+*~
+\#*#
+.#*
+
+# Editor files
+*.swp
+*.swo
+.*.swp
+.*.swo
+
+# Tags
+tags
+TAGS
+cscope.*
+GPATH
+GRTAGS
+GTAGS
+
+# Test artifacts
+test/test_userspace
+test/*.log
+
+# JokerOS/SquireOS module build artifacts
+src/drivers/jokeros/*.o
+src/drivers/jokeros/*.ko
+src/drivers/jokeros/*.mod.c
+src/drivers/jokeros/*.mod.o
+src/drivers/jokeros/.*.cmd
+src/drivers/jokeros/.tmp_versions/
+
+# Patch files (unless tracking specific patches)
+*.patch
+*.diff
+
+# Documentation build
+Documentation/DocBook/*.xml
+Documentation/DocBook/*.ps
+Documentation/DocBook/*.pdf
+Documentation/DocBook/*.html
+Documentation/DocBook/*.9
+
+# Keep important config files
+!.config
+!build/uImage.config
